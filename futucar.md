@@ -32,3 +32,24 @@ TODO Either using the car
 Or the simulator, first run the server and then using the simulator app.
 
     ´donkey sim --type <linear|categorical> --model <path-to-model>´
+
+## Doing stuff with the car
+You need the wlan router, turn it on. Turn the car on by plugging in
+the usb cable to the rasberry pi. The password for the wlan and
+raspberry pi are written on the router.
+
+Connect to the raspberry pi
+
+    ´ssh pi@192.168.8.102´
+
+cd to the mycar dir
+
+    ´cd ~/mycar´
+
+to run car and record training data run
+
+    ´python manage.py drive --js´
+
+to see stuff from the camera and debug stuff run
+
+    ´python manage.py drive´
