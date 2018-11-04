@@ -25,6 +25,7 @@ install:
 - pip install -e .[tf]
 - pip install -e .[dev]
 - pip install -e .[ci]
+- conda install -c conda-forge opencv
 
 script:
 - pytest -v --cov=donkeycar donkeycar/tests
