@@ -7,24 +7,21 @@ Install the SW stack using those instructions. If using OSX then remember to use
 Note!! Keras models are NOT compatible between different tensorflow versions!
 
 ## Additional packages
-Roughly follow these instructions for setting up the symlink to cv2.so lib
-https://www.learnopencv.com/install-opencv3-on-macos/
 
-source activate donkey
-### First install opencv using brew
-brew install opencv   
+### OpenCV
 
-### Then install some python crap
-pip install numpy scipy matplotlib scikit-image scikit-learn ipython pandas
+- activate donkey env:
 
+   ´source activate donkey´   
+   
+- OSX (and should also work in Linux)
 
-### Python expects to find opencv library from <python-ver>/site-packages/cv2.so BUT of course installer installs it with different name 
-find /usr/local/opt/opencv/lib/ -name cv2*.so
-<should output something like /usr/local/opt/opencv/lib//python3.7/site-packages/cv2.cpython-37m-darwin.so>
-<Go to your miniconda env folder>
-cd ~/miniconda3/envs/donkey/lib/python3.6/site-packages
-
-ln -s /usr/local/opt/opencv/lib/python3.7/site-packages/cv2.cpython-37m-darwin.so cv2.so
+   ´conda install -c conda-forge opencv´   
+   
+- Linux option 2: use pip
+   
+   ´pip install opencv-python´   
+   
 
 ## Create car
 
