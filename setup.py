@@ -47,7 +47,8 @@ setup(name='donkeycar',
                           'pytest-cov',
                           'responses'
                           ],
-                      'ci': ['codecov']
+                      'ci': ['codecov'],
+                      'opencv': ['opencv-python']
                   },
 
       include_package_data=True,
