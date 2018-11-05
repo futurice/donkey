@@ -5,6 +5,8 @@
 [![PyPI version](https://badge.fury.io/py/donkeycar.svg)](https://badge.fury.io/py/donkeycar)
 [![Py versions](https://img.shields.io/pypi/pyversions/donkeycar.svg)](https://img.shields.io/pypi/pyversions/donkeycar.svg)
 
+#### [Futurice Related Docs](https://futurice.github.io/donkey/)
+
 Donkeycar is minimalist and modular self driving library for Python. It is
 developed for hobbiests and students with a focus on allowing fast experimentation and easy
 community contributions.
