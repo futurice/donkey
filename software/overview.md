@@ -1,17 +1,5 @@
 # Software - Overview
 
----
-# Contents
- * [Hardware](hardware/overview)
-   - [openCV](hardware/openCV)
-   - [hall-effect sensor](hardware/hall-effect-sensor)
-   - [pela-blocks](hardware/pela-blocks)
- * **Software**
-   - [Web Server](software/web-server)
-   - [AI/Machine Learning](software/ai)
----
-   
-
 The donkey car software consists of 3 main parts. 
 
 1. Web server 
