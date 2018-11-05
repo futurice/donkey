@@ -1,6 +1,6 @@
 # Hardware - Overview
 
-The car chosen for the Helsinki office donkey car is a `[make and model]`. Some things to note of this car is that it uses a brushless dc moter and is there for VERY fast.
+The car chosen for the Helsinki office donkey car is a `Carson 1:10 X10E BL VW Scirocco RC Car`. Some things to note of this car is that it uses a brushless dc moter and is there for VERY fast.
 
 
 
