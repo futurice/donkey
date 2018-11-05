@@ -1,60 +1,75 @@
-# donkeycar: a python self driving library
+# donkeycar: a python self driving library -- THE FUTU FORK
+---
+# Contents
+ * [Hardware](hardware/overview)
+   - [openCV](hardware/openCV)
+   - [hall-effect sensor](hardware/hall-effect-sensor)
+   - [pela-blocks](hardware/pela-blocks)
+ * [Software](software/overview)
+   - [Web Server](software/web-server)
+   - [AI/Machine Learning](software/ai)
+---
+   
+Description of project
 
-[![Build Status](https://travis-ci.org/wroscoe/donkey.svg?branch=dev)](https://travis-ci.org/wroscoe/donkey)
-[![CodeCov](https://codecov.io/gh/wroscoe/donkey/branch/dev/graph/badge.svg)](https://codecov.io/gh/wroscoe/donkey/branch/dev)
-[![PyPI version](https://badge.fury.io/py/donkeycar.svg)](https://badge.fury.io/py/donkeycar)
-[![Py versions](https://img.shields.io/pypi/pyversions/donkeycar.svg)](https://img.shields.io/pypi/pyversions/donkeycar.svg)
+# Getting Started - driving
+The car's current location is on the 7th Floor in the Helsinki office.
 
-Donkeycar is minimalist and modular self driving library for Python. It is
-developed for hobbiests and students with a focus on allowing fast experimentation and easy
-community contributions.
+`[picture of location]`
 
-#### Quick Links
-* [Donkeycar Updates & Examples](http://donkeycar.com)
-* [Build instructions and Software documentation](http://docs.donkeycar.com)
-* [Slack / Chat](https://donkey-slackin.herokuapp.com/)
+## Checklist Before Driving
 
-![donkeycar](original_docs/assets/build_hardware/donkey2.PNG)
+ - [ ] 1 white Xbox controller
+ - [ ] block to elevate the car wheels off the ground
+ - [ ] Check power bank has charge
+ - [ ] Plug Raspberry Pi to power bank
+ - [ ] 1 Huawai 4g access point / router
+ - [ ] Check you can connect to AP over SSID `DonkeyCarWLAN`
+ - [ ] Check you have access to AP admin panel
+    - Access AP: `192.168.8.1`
+    - Username: `admin`
+    - Password: `donkeycar4000`
+ - [ ] Write down Raspberry Pi's IP address it's host name is `HKI-cowcatcher`
+ - [ ] check you can ssh into raspberry pi (`HKI-cowcatcher`)
 
-#### Use Donkey if you want to:
-* Make an RC car drive its self.
-* Compete in self driving races like [DIY Robocars](http://diyrobocars.com)
-* Experiment with autopilots, mapping computer vision and neural networks.
-* Log sensor data. (images, user inputs, sensor readings)
-* Drive your car via a web or game controler.
-* Leverage community contributed driving data.
-* Use existing harsupport
-supportdware CAD designs for upgrades.
+## Driving
+Once you've checked all of the above place the car on the block
 
-### Getting driving.
-After building a Donkey2 you can turn on your car and go to http://localhost:8887 to drive.
+`[picture example]`
 
-### Modify your cars behavior.
-The donkey car is controlled by running a sequence of events
+and turn on the car.
 
-```python
-#Define a vehicle to take and record pictures 10 times per second.
+`[picture where the switch is]`
 
-from donkeycar import Vehicle
-from donkeycar.parts.camera import PiCamera
-from donkeycar.parts.datastore import Tub
+Next, ssh into the pi and start the donkeycar web server with the "joystick flag"
 
-
-V = Vehicle()
-
-#add a camera part
-cam = PiCamera()
-V.add(cam, outputs=['image'], threaded=True)
-
-#add tub part to record images
-tub = Tub(path='~/mycar/get_started',
-          inputs=['image'],
-          types=['image_array'])
-V.add(tub, inputs=['image'])
-
-#start the drive loop at 10 Hz
-V.start(rate_hz=10)
+```bash
+cd mycar
+python manage.py drive --js
 ```
 
-See [home page](http://donkeycar.com), [docs](http://docs.donkeycar.com)
-or join the [Slack channel](http://www.donkeycar.com/community.html) to learn more.
+If everything worked out you should see the on the console output from the xbox controller.
+
+Check that the steering and accelerations works. If its all good you can start driving.
+
+!> The donkey car server records data **only** on throttle.
+
+?> To see stuff from the camera and debug stuff run  `python manage.py drive`
+
+## Contributing Training Data
+
+Once you've driven a few laps around the test course adding that data to [Google Drive](https://drive.google.com/drive/u/0/folders/1FD8rDuJKrGzUeDxjR1MyKP8O-NLbiSWo) will help the AI team further train their models.
+
+[pi to colab](_media/diagrams/pi-to-colab.html ':include :type=html width=100% height=400px')
+
+**Steps to transfer data to Drive**
+1. ssh into pi
+2. use `~donkeycar/zipForColab.sh` to zip all the files in the `data` folder
+```bash
+~donkeycar/zipForColab.sh --path /path/to/data/folder
+```
+3. copy the zipped file to your computer
+```bash
+scp -r pi@192.168.8.100:/home/pi/mycar/tub/MM_DD_YY_HH_MM_SS_data.zip .
+```
+5. copy the zipped folder to 
