@@ -40,12 +40,12 @@ def lse(correct, estimates):
     return sum / len(correct)
 
 
-def validate(model_path=None, tub_names=None, model_type='linear', output=None):
+def validate(cfg, model_path=None, tub_names=None, model_type='linear', output=None):
     print("Using a model of type: ", model_type)
     if model_type == "categorical":
         kl = KerasCategorical()
     elif model_type == "linear":
-        kl = KerasLinear()
+        kl = KerasLinear(cfg)
 
     if model_path:
         kl.load(model_path)
@@ -109,4 +109,5 @@ def validate(model_path=None, tub_names=None, model_type='linear', output=None):
 
 if __name__ == '__main__':
     args = docopt(__doc__)
-    validate(model_path=args['--model'], tub_names=args['--tub'], model_type=args['--type'], output=args['--output'])
+    cfg = dk.load_config()
+    validate(cfg, model_path=args['--model'], tub_names=args['--tub'], model_type=args['--type'], output=args['--output'])

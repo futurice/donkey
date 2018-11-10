@@ -259,7 +259,7 @@ class Sim(BaseCommand):
         if args.type == "categorical":
             kl = KerasCategorical()
         elif args.type == "linear":
-            kl = KerasLinear()
+            kl = KerasLinear(cfg)
         else:
             print("didn't recognice type:", args.type)
             return
@@ -381,7 +381,7 @@ class ShowPredictionPlots(BaseCommand):
         if model_type == "categorical":
             model = KerasCategorical()
         elif model_type == "linear":
-            model = KerasLinear()
+            model = KerasLinear(cfg)
 
         model.load(model_path)
 

@@ -78,7 +78,7 @@ def drive(cfg, model_path=None, use_joystick=False, use_chaos=False, model_type=
     if model_type == "categorical":
         kl = KerasCategorical()
     elif model_type == "linear":
-        kl = KerasLinear()
+        kl = KerasLinear(cfg)
     
     if model_path:
         kl.load(model_path)
@@ -160,7 +160,7 @@ def train_linear(cfg, tub_names, new_model_path, base_model_path=None):
 
     new_model_path = os.path.expanduser(new_model_path)
 
-    kl = KerasLinear()
+    kl = KerasLinear(cfg)
     if base_model_path is not None:
         base_model_path = os.path.expanduser(base_model_path)
         kl.load(base_model_path)

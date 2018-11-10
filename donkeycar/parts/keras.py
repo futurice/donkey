@@ -80,13 +80,13 @@ class KerasCategorical(KerasPilot):
 
 
 class KerasLinear(KerasPilot):
-    def __init__(self, model=None, num_outputs=None, *args, **kwargs):
+    def __init__(self, cfg, model=None, num_outputs=None, *args, **kwargs):
         super(KerasLinear, self).__init__(*args, **kwargs)
         if model:
             self.model = model
         #self.model = default_linear()
         #self.model = futucar_model()
-        self.model = default_n_linear(2)
+        self.model = default_n_linear(cfg, 2)
 
         self.model.summary()
     def run(self, img_arr):
@@ -286,10 +286,17 @@ def futucar_model():
     return model
 
 
-def default_n_linear(num_outputs):
-    img_in = Input(shape=(120, 160, 3), name='img_in')
+def default_n_linear(cfg, num_outputs):
+    height = cfg.CAMERA_RESOLUTION[0]
+    width = cfg.CAMERA_RESOLUTION[1]
+
+    print("Model for resolution HEIGHT ", height, " WIDTH ", width)
+    img_in = Input(shape=(height, width, 3), name='img_in')
     x = img_in
-    x = Cropping2D(cropping=((60, 0), (0, 0)))(x)  # trim 60 pixels off top
+    if (cfg.CROP_ENABLED):
+        #x = Cropping2D(cropping=((60, 0), (0, 0)))(x)  # trim 60 pixels off top
+        x = Cropping2D(cropping=((cfg.TOP_CROP, cfg.BOTTOM_CROP), (cfg.LEFT_CROP, cfg.RIGHT_CROP)))(x)
+
     x = Lambda(lambda x: x / 127.5 - 1.)(x)  # normalize and re-center
     x = Convolution2D(24, (5, 5), strides=(2, 2), activation='relu')(x)
     x = Convolution2D(32, (5, 5), strides=(2, 2), activation='relu')(x)
