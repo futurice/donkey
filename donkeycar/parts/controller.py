@@ -227,10 +227,10 @@ class JoystickController(object):
 
     def on_throttle_changes(self):
         """
-        turn on recording when non zero throttle in the user mode.
+        turn on recording when throttle > 0 in the user mode.
         """
         if self.auto_record_on_throttle:
-            self.recording = (self.throttle != 0.0 and self.mode == 'user')
+            self.recording = (self.throttle > 0.0 and self.mode == 'user')
 
     def init_js(self):
         """
