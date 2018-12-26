@@ -299,9 +299,9 @@ def default_n_linear(num_outputs):
 
     x = Flatten(name='flattened')(x)
     x = Dense(100, activation='relu')(x)
-    x = Dropout(.1)(x)
+    x = Dropout(.3)(x)
     x = Dense(50, activation='relu')(x)
-    x = Dropout(.1)(x)
+    x = Dropout(.3)(x)
 
     outputs = []
 
