@@ -2,8 +2,10 @@
 
 These instructions are shortcuts for more general knowledge found in [donkeycar docs](http://docs.donkeycar.com/)
 
-Install the SW stack using those instructions. If using OSX then remember to use the same version of Tensorflow as in the car (atm ==v 1.8)
+Install the SW stack using those instructions. 
 
+If using OSX then remember to use the same version of Tensorflow (atm 1.8) AND the same Python version (3.5.3) as in the pi.
+Using the install/envs/mac.yml will install the correct version to conda env 'donkey535'
 Note!! Keras models are NOT compatible between different tensorflow versions!
 
 
