@@ -289,7 +289,7 @@ def futucar_model():
 def default_n_linear(num_outputs):
     img_in = Input(shape=(120, 160, 3), name='img_in')
     x = img_in
-    x = Cropping2D(cropping=((60, 0), (0, 0)))(x)  # trim 60 pixels off top
+    x = Cropping2D(cropping=((20, 40), (0, 0)))(x)  # trim 40 pixels off top and bottom
     x = Lambda(lambda x: x / 127.5 - 1.)(x)  # normalize and re-center
     x = Convolution2D(24, (5, 5), strides=(2, 2), activation='relu')(x)
     x = Convolution2D(32, (5, 5), strides=(2, 2), activation='relu')(x)
@@ -299,9 +299,9 @@ def default_n_linear(num_outputs):
 
     x = Flatten(name='flattened')(x)
     x = Dense(100, activation='relu')(x)
-    x = Dropout(.1)(x)
+    x = Dropout(.3)(x)
     x = Dense(50, activation='relu')(x)
-    x = Dropout(.1)(x)
+    x = Dropout(.3)(x)
 
     outputs = []
 
