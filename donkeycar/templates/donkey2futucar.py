@@ -74,12 +74,15 @@ def drive(cfg, model_path=None, use_joystick=False, use_chaos=False, model_type=
                                 outputs=['run_pilot'])
 
     # Run the pilot if the mode is not user.
+    kl = KerasLinear()
     print("Using a model of type: ", model_type)
-    if model_type == "categorical":
+    if model_type == 'categorical':
         kl = KerasCategorical()
-    elif model_type == "linear":
+    elif model_type == 'linear':
         kl = KerasLinear()
-    
+    else:
+        print("invalid model type! ", model_type)
+
     if model_path:
         kl.load(model_path)
 

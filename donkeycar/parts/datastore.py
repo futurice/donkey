@@ -224,6 +224,7 @@ class Tub(object):
         except FileNotFoundError:
             raise
         except:
+            logger.error('Unexpected error with file {}'.format(path))
             logger.error('Unexpected error: {}'.format(sys.exc_info()[0]))
             raise
 

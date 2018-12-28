@@ -62,7 +62,7 @@ class CreateCar(BaseCommand):
         args = self.parse_args(args)
         self.create_car(path=args.path, template=args.template, overwrite=args.overwrite)
 
-    def create_car(self, path, template='donkey2', overwrite=False):
+    def create_car(self, path, template='donkey2futucar', overwrite=False):
         """
         This script sets up the folder struction for donkey to work.
         It must run without donkey installed so that people installing with

@@ -2,8 +2,10 @@
 
 These instructions are shortcuts for more general knowledge found in [donkeycar docs](http://docs.donkeycar.com/)
 
-Install the SW stack using those instructions. If using OSX then remember to use the same version of Tensorflow as in the car (atm ==v 1.8)
+Install the SW stack using those instructions. 
 
+If using OSX then remember to use the same version of Tensorflow (atm 1.8) AND the same Python version (3.5.3) as in the pi.
+Using the install/envs/mac.yml will install the correct version to conda env 'donkey535'
 Note!! Keras models are NOT compatible between different tensorflow versions!
 
 ## Additional packages
@@ -48,3 +50,24 @@ TODO Either using the car
 Or the simulator, first run the server and then using the simulator app.
 
     ´donkey sim --type <linear|categorical> --model <path-to-model>´
+
+## Doing stuff with the car
+You need the wlan router, turn it on. Turn the car on by plugging in
+the usb cable to the rasberry pi. The password for the wlan and
+raspberry pi are written on the router.
+
+Connect to the raspberry pi
+
+    ´ssh pi@192.168.8.102´
+
+cd to the mycar dir
+
+    ´cd ~/mycar´
+
+to run car and record training data run
+
+    ´python manage.py drive --js´
+
+to see stuff from the camera and debug stuff run
+
+    ´python manage.py drive´
