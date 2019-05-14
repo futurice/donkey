@@ -1,4 +1,5 @@
 import numpy as np
+import time
 import cv2
 #from matplotlib import pyplot as plt
 
@@ -17,6 +18,7 @@ class PreProcessor:
         #TODO add cropping before edge detect
 
         # TODO try this also https://www.learnopencv.com/filling-holes-in-an-image-using-opencv-python-c/
+        start = time.time()
 
         edges = cv2.Canny(img_arr, self.canny_min, self.canny_max)
         closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, self.morph_kernel)
@@ -26,6 +28,9 @@ class PreProcessor:
             output = cv2.bitwise_and(img_arr, img_arr, mask=mask)
         else:
             output = mask
+
+        end = time.time()
+        print("Elapsed: ", (end - start)*1000, " ms")
 
         return output
 
