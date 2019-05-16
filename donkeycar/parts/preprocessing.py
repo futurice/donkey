@@ -61,30 +61,29 @@ class Tester:
     def __init__(self):
         self.processor = PreProcessor(blend_colors=True)
 
-    def process_and_save(self, img_path, new_path):
-        # load objects that were saved as separate files
+    def process(self, img_path):
         img = Image.open(img_path)
+        orig = np.array(img)
+
         width, height = img.size
         print("w: ", width, " h:", height)
-        arr = np.array(img)
-        processed = self.processor.run(arr)
+        crop_area = PreProcessor.crop_area(50, 0, 0, 0, width, height)
+        self.processor.set_crop_area(crop_area)
+
+        processed = self.processor.run(orig)
+        return orig, processed
+
+    def process_and_save(self, img_path, new_path):
+
+        orig, processed = self.process(img_path)
         saveable = Image.fromarray(np.uint8(processed))
         saveable.save(new_path)
 
 
     def process_and_plot(self, img_path):
-        img = Image.open(img_path)
-        arr = np.array(img)
+        orig, processed = self.process(img_path)
 
-        width, height = img.size
-        print("w: ", width, " h:", height)
-        #crop_area = PreProcessor.crop_area(20, 40, 00, 0, width, height)
-        crop_area = PreProcessor.crop_area(50, 0, 0, 0, width, height)
-        self.processor.set_crop_area(crop_area)
-
-        processed = self.processor.run(arr)
-
-        plt.subplot(2, 2, 1), plt.imshow(arr, cmap='gray')
+        plt.subplot(2, 2, 1), plt.imshow(orig, cmap='gray')
         plt.title('Original Image'), plt.xticks([]), plt.yticks([])
 
         plt.subplot(2, 2, 2), plt.imshow(processed, cmap='gray')
@@ -101,5 +100,5 @@ if __name__ == '__main__':
     img_path = '/Users/mpaa/donkey-data/data/data-7th/7th-set1/1164_cam-image_array_.jpg'
 
     test = Tester()
-    #test.process_and_save(img_path, "./test.jpg")
+    #test.process_and_save(img_path, "./test2.jpg")
     test.process_and_plot(img_path)
