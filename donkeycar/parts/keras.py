@@ -13,7 +13,6 @@ from tensorflow.python.keras.layers import Dropout, Flatten, Dense, Cropping2D, 
 from tensorflow.python.keras.callbacks import ModelCheckpoint, EarlyStopping
 
 from donkeycar import util
-from donkeycar.parts.preprocessing import PreProcessor
 
 class KerasPilot:
 
@@ -80,18 +79,23 @@ class KerasCategorical(KerasPilot):
 
 
 class KerasLinear(KerasPilot):
-    def __init__(self, model=None, num_outputs=None, pre_process=True, *args, **kwargs):
+    def __init__(self, config=None, model=None, num_outputs=None, *args, **kwargs):
         super(KerasLinear, self).__init__(*args, **kwargs)
         if model:
             self.model = model
 
-        if pre_process:
+        if config and config.PRE_PROCESS:
             print('Using preprocessor')
+            #import conditionally because this will crash if opencv is not installed
+            from donkeycar.parts.preprocessing import PreProcessor
             self.preprocessor = PreProcessor()
+        else:
+            print('NOT preprocessing')
+            self.preprocessor = None
 
         #self.model = default_linear()
         #self.model = futucar_model()
-        self.model = default_n_linear(2)
+        self.model = default_n_linear(config, 2)
 
         self.model.summary()
     def run(self, img_arr):
@@ -296,10 +300,14 @@ def futucar_model():
     return model
 
 
-def default_n_linear(num_outputs):
+def default_n_linear(cfg, num_outputs):
     img_in = Input(shape=(120, 160, 3), name='img_in')
     x = img_in
-    x = Cropping2D(cropping=((30, 25), (0, 0)))(x)  # trim pixels off top and bottom
+    if cfg.CROPPING:
+        print("Cropping the frame before training")
+        crop_area = cfg.CROPPING
+        x = Cropping2D(cropping=crop_area)(x)
+
     x = Lambda(lambda x: x / 127.5 - 1.)(x)  # normalize and re-center
     x = Convolution2D(24, (5, 5), strides=(2, 2), activation='relu')(x)
     x = Convolution2D(32, (5, 5), strides=(2, 2), activation='relu')(x)

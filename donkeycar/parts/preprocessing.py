@@ -36,7 +36,7 @@ class PreProcessor:
 
 
         end = time.time()
-        print("Elapsed: ", (end - start)*1000, " ms")
+        #print("Elapsed: ", (end - start)*1000, " ms")
 
         return output
 
