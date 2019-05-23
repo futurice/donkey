@@ -25,8 +25,9 @@ from donkeycar.parts.datastore import TubGroup
 
 def print_mean(l, message):
     mean = statistics.mean(l)
+    median = statistics.median(l)
     stdev = statistics.stdev(l)
-    print(message, " mean: ", mean, " and standard dev: ", stdev)
+    print(message, " mean: ", mean, " median: ", median, " and standard dev: ", stdev)
 
 def print_lse(correct, estimates, message):
     print(message, " lse: ", lse(correct, estimates))
