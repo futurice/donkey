@@ -56,6 +56,13 @@ def drive(cfg, model_path=None, use_joystick=False, use_chaos=False, model_type=
         # of managing steering, throttle, and modes, and more.
         ctr = LocalWebController(use_chaos=use_chaos)
 
+    if cfg.PRE_PROCESS:
+        print("Adding preprocessing part to vehicle")
+        # import conditionally since crashes if no OpenCV installed
+        from donkeycar.parts.preprocessing import PreProcessor
+        processor = PreProcessor()
+        V.add(processor, inputs=['cam/image_array'], outputs=['cam/image_array'])
+
     V.add(ctr,
           inputs=['cam/image_array'],
           outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],
