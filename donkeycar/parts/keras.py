@@ -52,12 +52,12 @@ class KerasPilot:
 
         hist = self.model.fit_generator(
             train_gen,
-            steps_per_epoch=steps,
+            steps_per_epoch=int(steps),
             epochs=epochs,
             verbose=1,
             validation_data=val_gen,
             callbacks=callbacks_list,
-            validation_steps=steps * (1.0 - train_split) / train_split)
+            validation_steps=int(steps * (1.0 - train_split) / train_split))
 
         return hist
 
