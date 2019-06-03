@@ -180,7 +180,7 @@ def train_linear(cfg, tub_names, new_model_path, base_model_path=None):
     total_train = int(total_records * cfg.TRAIN_TEST_SPLIT)
     total_val = total_records - total_train
     print('train: %d, validation: %d' % (total_train, total_val))
-    steps_per_epoch = total_train // cfg.BATCH_SIZE
+    steps_per_epoch = int(total_train // cfg.BATCH_SIZE)
     print('steps_per_epoch', steps_per_epoch)
 
     kl.train(train_gen,
@@ -231,7 +231,7 @@ def train_categorical(cfg, tub_names, new_model_path, base_model_path=None):
     total_train = int(total_records * cfg.TRAIN_TEST_SPLIT)
     total_val = total_records - total_train
     print('train: %d, validation: %d' % (total_train, total_val))
-    steps_per_epoch = total_train // cfg.BATCH_SIZE
+    steps_per_epoch = int(total_train // cfg.BATCH_SIZE)
     print('steps_per_epoch', steps_per_epoch)
 
     kl.train(train_gen,
